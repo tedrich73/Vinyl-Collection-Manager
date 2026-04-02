@@ -8,7 +8,7 @@ class Artist(models.Model):
         OTHER = "other", "Other"
 
     name = models.CharField(max_length=255)
-    type = models.CharField(
+    artist_type = models.CharField(
         max_length=10,
         choices=ArtistType.choices,
         default=ArtistType.SOLO,
