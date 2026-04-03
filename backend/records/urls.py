@@ -1,6 +1,7 @@
-from django.urls import path
-from . import views
+from rest_framework.routers import DefaultRouter
+from .views import RecordViewSet
 
-urlpatterns = [
-    path("", views.index, name="index")
-]
+router = DefaultRouter()
+router.register("records", RecordViewSet, basename="record")
+
+urlpatterns = router.urls

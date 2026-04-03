@@ -1,5 +1,8 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from rest_framework import viewsets
+from .models import Record
+from .serializers import RecordSerializer
 
-def index(request):
-    return HttpResponse("This is my records view")
+
+class RecordViewSet(viewsets.ModelViewSet):
+    queryset = Record.objects.select_related("artist", "label").all()
+    serializer_class = RecordSerializer

@@ -19,6 +19,17 @@ class Artist(models.Model):
         return self.name
     
 
+class Genre(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def save(self, *args, **kwargs):
+        self.name = self.name.strip().lower()
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+
 class Founder(models.Model):
     name = models.CharField(max_length=255)
 
@@ -38,7 +49,7 @@ class Label(models.Model):
 class Record(models.Model):
     title = models.CharField(max_length=255)
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name="records")
-    genre = models.CharField(max_length=100, blank=True)
+    genres = models.ManyToManyField(Genre, related_name="records", blank=True)
     release_year = models.PositiveIntegerField(null=True, blank=True)
     label = models.ForeignKey(Label, on_delete=models.SET_NULL, null=True, blank=True, related_name="records")
     created_at = models.DateTimeField(auto_now_add=True)
