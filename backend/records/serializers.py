@@ -32,7 +32,7 @@ class RecordSerializer(serializers.ModelSerializer):
             "id",
             "title",
             "artist",
-            "genre",
+            "genres",
             "release_year",
             "label",
             "created_at",
