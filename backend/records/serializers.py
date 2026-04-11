@@ -23,8 +23,9 @@ class LabelSerializer(serializers.ModelSerializer):
         ]
 
 class RecordSerializer(serializers.ModelSerializer):
-    artist = ArtistSerializer(read_only=True)
-    label = LabelSerializer(read_only = True)
+    artist_name = serializers.CharField(source="artist.name", read_only=True)
+    label_name = serializers.CharField(source="label.name", read_only=True)
+    genre_names = serializers.SerializerMethodField()
 
     class Meta:
         model = Record
@@ -32,8 +33,14 @@ class RecordSerializer(serializers.ModelSerializer):
             "id",
             "title",
             "artist",
+            "artist_name",
             "genres",
+            "genre_names",
             "release_year",
             "label",
+            "label_name",
             "created_at",
         ]
+    
+    def get_genre_names(self, obj):
+        return [genre.name for genre in obj.genres.all()]
