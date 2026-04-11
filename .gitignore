@@ -1,8 +1,9 @@
 # Django / Python 
 # ==================
+# Python
 backend/venv/
 __pycache__/
-*.phc
+*.pyc
 
 # DB
 backend/db.sqlite3
